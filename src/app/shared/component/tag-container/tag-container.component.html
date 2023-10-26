@@ -1,0 +1,6 @@
+<div class="container row d-flex align-items-center align-self-center">
+  <div *ngIf="tags.length === 0; else showTags">No found tags</div>
+  <ng-template #showTags>
+    <button (click)="search_content(tag)" *ngFor="let tag of tags" class="option m-2">{{tag}}</button>
+  </ng-template>
+</div>

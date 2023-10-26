@@ -1,0 +1,17 @@
+<div class="poke-container" (click)="get_values()">
+  <div class="card jusstify-content-center" style="width: 18rem; " *ngFor="let pokemon of pokemons">
+    <h3>{{pokemon.name}}</h3>
+    <pokemon-component-card [name]="pokemon.name" />
+  </div>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <button class=" page-link" (click)="get_pokemon_api_previous()">Previous</button>
+    </li>
+    <li class="page-item">
+      <button class="page-link" (click)="get_pokemon_api_next()">Next</button>
+    </li>
+  </ul>
+</nav>

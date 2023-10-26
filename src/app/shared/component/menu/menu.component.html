@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="nav-link active" aria-current="page" (click)="set_visible_tag()">Ver tags</button>
+        </li>
+      </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="nav-link active" aria-current="page" (click)="set_visible_tag()">Ver tags</button>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <label>Search for character</label>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+          (keyup.enter)="search_content()" #search_input>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<shared-component-tag [tags]="tags" *ngIf="is_tag" />
