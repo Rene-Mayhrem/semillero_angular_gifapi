@@ -1,0 +1,15 @@
+.navbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100vw;
+}
+
+.dropdown-menu {
+  z-index: 2;
+}
+
+.dropdown-item {
+  z-index: 2;
+}

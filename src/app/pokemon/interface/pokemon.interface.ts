@@ -191,3 +191,15 @@ export interface Type {
   slot: number;
   type: Species;
 }
+
+export interface PokemonResponseGender {
+  count: number;
+  next: string;
+  previous: null;
+  results: GenderResult[];
+}
+
+export interface GenderResult {
+  name: string;
+  url: string;
+}

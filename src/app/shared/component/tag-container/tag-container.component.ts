@@ -13,6 +13,7 @@ export class TagContainerComponent {
   constructor(private service: PokemonService) {}
 
   search_content(tag: string) {
+    console.log(tag);
     this.service.search_content_tag(tag);
   }
 }

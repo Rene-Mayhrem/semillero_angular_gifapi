@@ -1,9 +1,9 @@
-<img [src]="pokemon_by_name.sprites.front_default || ''" class="card-img-top" alt="pokemon"
+<img [src]="pokemon_by_name.sprites.front_default || ''" class="card-img-top card-img" alt="pokemon"
   *ngIf="pokemon_by_name.sprites.front_default !== ''">
-<div class="card-body" *ngIf="pokemon_by_name.name !== ''">
-  <h5 class="card-title">abilities</h5>
+<div class="card-body" *ngIf="show_gifs">
+  <h5 class=" card-title">abilities</h5>
   <p class="card-text" *ngFor="let ability of pokemon_by_name.abilities">{{ability.ability.name}}</p>
 </div>
 <button class="btn btn-primary justify-content-center" (click)="print()">Watch more</button>
 
-<gifs-component-list *ngIf="show_gifs" />
+<gifs-component-list *ngIf="show_gifs" [gifs_data]="gifs" />

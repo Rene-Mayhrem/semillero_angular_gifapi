@@ -5,6 +5,7 @@ import {
   Pokemons,
 } from '../../interface/pokemon.interface';
 import { PokemonService } from '../../service/pokemon.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'pokemons-component-list',
@@ -40,27 +41,34 @@ export class ListCardComponent {
   };
 
   constructor(private service: PokemonService) {
-    // this.service
-    //   .get_pokemons(this.service.url_get_pokemon)
-    //   .subscribe((result) => {
-    //     this._api_response = result;
-    //     this._pokemons = this._api_response.results;
-    //     this._pokemons?.map((current_pokemon) => {
-    //       this.service
-    //         .convert_pokemons_info(current_pokemon.name)
-    //         .subscribe((current_pokemon) => {
-    //           console.log(current_pokemon);
-    //           this._pokemons_info.push(current_pokemon);
-    //           console.log(this._pokemons_info);
-    //         });
-    //     });
-    //   });
     this.service
       .get_pokemons(this.service.url_get_pokemon)
       .subscribe((result) => {
         this._api_response = result;
         this._pokemons = this._api_response.results;
+        console.log(this._pokemons);
+        console.log('Data', this.pokemons_info);
       });
+    this._api_response.results?.map((current_pokemon) => {
+      this.service
+        .get_pokemon_by_name(current_pokemon.name)
+        .subscribe((result) => {
+          console.log(result);
+          this._pokemons_info.push(result);
+        });
+    });
+    this.service.get_all_pokemons(this.service.url_get_pokemon);
+    console.log(this.pokemons_api);
+    this.pokemons_api.results?.map((current_pokemon) => {
+      this.service
+        .get_pokemon_by_name(current_pokemon.name)
+        .subscribe((result) => {
+          console.log('A', result);
+          this._pokemons_info.push(result);
+        });
+    });
+
+    console.log(this._pokemons_info);
   }
 
   get pokemons_api(): ApiResponse {
@@ -81,6 +89,22 @@ export class ListCardComponent {
 
   get pokemon_name(): PokemonResponse {
     return this.service.pokemon_name;
+  }
+
+  private get_pokemon_api(url: string): void {
+    this.service.get_pokemons(url).subscribe((result) => {
+      this._api_response = result;
+      this._pokemons = this._api_response.results;
+      this._pokemons?.forEach((current_pokemon) => {
+        this.service
+          .convert_pokemons_info(current_pokemon.url)
+          .subscribe((poke_data) => {
+            this._pokemons_info.push(poke_data);
+          });
+      });
+      console.log(this._pokemons);
+      console.log(this.pokemons_info);
+    });
   }
 
   get_values(): void {

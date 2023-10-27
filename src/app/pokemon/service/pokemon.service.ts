@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResponse, PokemonResponse } from '../interface/pokemon.interface';
+import {
+  ApiResponse,
+  GenderResult,
+  PokemonResponse,
+} from '../interface/pokemon.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -41,23 +45,28 @@ export class PokemonService {
   };
 
   constructor(private http: HttpClient) {
-    // this.get_pokemon_list();
+    this.get_pokemon_list();
+    this.load_local_storage();
   }
 
   add_new_tag(tag_content: string): void {
     if (this._tags.includes(tag_content)) {
-      this._tags = this._tags.filter((current_tag) => {
-        current_tag !== tag_content;
-      });
+      this._tags = this._tags.filter(
+        (current_tag) => current_tag !== tag_content
+      );
+      console.log('Tags: ', this._tags);
     }
+    console.log(this._tags);
     this._tags.unshift(tag_content);
-    this._tags = this._tags.splice(0, 50);
+    console.log(this._tags);
+    this._tags = this._tags.splice(0, 10);
+    this.save_local_storage();
   }
 
   search_content_tag(tag: string): void {
-    this._pokemons.results?.map((current_pokemon) => {
+    this.get_pokemon_by_name(tag).subscribe((current_pokemon) => {
       if (current_pokemon.name === tag) {
-        this._pokemons.results = [current_pokemon];
+        this._pokemon_name = current_pokemon;
         this.add_new_tag(tag);
       }
     });
@@ -77,17 +86,32 @@ export class PokemonService {
     });
   }
 
-  convert_pokemons_info(name: string): Observable<PokemonResponse> {
-    return this.http.get<PokemonResponse>(this.url_get_pokemon + name);
+  convert_pokemons_info(url: string): Observable<PokemonResponse> {
+    return this.http.get<PokemonResponse>(url);
   }
 
   get_pokemons(url: string): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(url);
   }
 
+  get_all_pokemons(url: string): void {
+    this.http.get<ApiResponse>(url).subscribe((results) => {
+      this._pokemons = results;
+    });
+  }
+
   get_pokemon_by_name(name: string): Observable<PokemonResponse> {
     console.log(this.url_get_pokemon + name);
     return this.http.get<PokemonResponse>(this.url_get_pokemon + name);
+  }
+
+  private save_local_storage(): void {
+    localStorage.setItem('history', JSON.stringify(this._tags));
+  }
+
+  private load_local_storage(): void {
+    if (!localStorage.getItem('history')) return;
+    this._tags = JSON.parse(localStorage.getItem('history') || '');
   }
 
   get tags(): string[] {

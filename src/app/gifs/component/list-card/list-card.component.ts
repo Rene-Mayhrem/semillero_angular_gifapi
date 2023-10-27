@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Gif } from '../../interface/gif.interface';
 import { GifService } from '../../service/gif.service';
 
@@ -8,6 +8,8 @@ import { GifService } from '../../service/gif.service';
   styleUrls: ['./list-card.component.css'],
 })
 export class ListCardComponent {
+  @Input()
+  public gifs_data: Gif[] = [];
   constructor(private service: GifService) {}
 
   get gifs(): Gif[] {

@@ -7,14 +7,16 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <button class="nav-link active" aria-current="page" (click)="set_visible_tag()">Ver tags</button>
-        </li>
-      </ul>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <button class="nav-link active" aria-current="page" (click)="set_visible_tag()">Ver tags</button>
-        </li>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Genders
+          </button>
+          <ul class="dropdown-menu">
+            <li><button (click)="filter_by_gender(gender)" *ngFor="let gender of genders"
+                class="dropdown-item">{{gender}}</button></li>
+          </ul>
+        </div>
       </ul>
       <div class="d-flex">
         <label>Search for character</label>
@@ -25,4 +27,4 @@
   </div>
 </nav>
 
-<shared-component-tag [tags]="tags" *ngIf="is_tag" />
+<shared-component-tag [tags]="tags" />

@@ -1,9 +1,18 @@
-<div class="poke-container" (click)="get_values()">
-  <div class="card jusstify-content-center" style="width: 18rem; " *ngFor="let pokemon of pokemons">
+<div class="poke-container" (click)="get_values()" *ngIf="pokemon_name.id !== 0; else poke_info">
+  <div class="card jusstify-content-center" *ngFor="let pokemon of pokemons">
     <h3>{{pokemon.name}}</h3>
     <pokemon-component-card [name]="pokemon.name" />
   </div>
 </div>
+
+<!-- <div class="poke-container" (click)="get_values()" *ngIf="pokemon_name.id !== 0; else poke_info">
+  <div class="card jusstify-content-center" *ngFor="let pokemon of pokemons_info">
+    <h3>{{pokemon.name}}</h3>
+    <pokemon-component-card [name]="pokemon.name" />
+  </div>
+</div> -->
+
+<ng-template #poke_info></ng-template>
 
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">

@@ -48,11 +48,11 @@ export class CardComponent {
   }
 
   print(): void {
-    console.log(this.name);
     this.get_pokemon_detail(this.name || '');
     this.show_gifs = !this.show_gifs;
     this.gif_service.get_gifs_pokemon(this.name || '').subscribe((gifs) => {
       this.gifs = gifs.data;
+      console.log(this.gifs);
     });
   }
 

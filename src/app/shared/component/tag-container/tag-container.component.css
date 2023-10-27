@@ -1,11 +1,12 @@
 .container {
   width: 100%;
-  height: 10em;
+  height: 5em;
   background-color: rgb(221, 224, 227);
-  position: absolute;
+  position: fixed;
   align-self: center;
   left: 8%;
   z-index: 1;
+  top: 4em;
 }
 
 .option {

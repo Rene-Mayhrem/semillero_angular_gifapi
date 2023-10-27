@@ -9,6 +9,7 @@ import { PokemonService } from 'src/app/pokemon/service/pokemon.service';
 export class MenuComponent {
   @ViewChild('search_input')
   public tag_input!: ElementRef<HTMLInputElement>;
+  private _genders: string[] = ['male', 'female', 'genderless'];
 
   public is_tag = false;
 
@@ -16,6 +17,10 @@ export class MenuComponent {
 
   get tags(): string[] {
     return this.service.tags;
+  }
+
+  get genders(): string[] {
+    return this._genders;
   }
 
   public search_content() {
@@ -28,5 +33,9 @@ export class MenuComponent {
 
   public set_visible_tag() {
     this.is_tag = !this.is_tag;
+  }
+
+  filter_by_gender(gender: string) {
+    console.log(gender);
   }
 }
